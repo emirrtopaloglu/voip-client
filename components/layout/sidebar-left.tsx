@@ -11,6 +11,7 @@ import {
   Settings,
   ShieldCheck,
   User2,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -40,6 +41,15 @@ export default function SidebarLeft() {
               >
                 <Home size={16} className="inline-block mr-2" />
                 Home
+              </Link>
+            </li>
+            <li className="block">
+              <Link
+                href="/admin/users"
+                className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
+              >
+                <Users size={16} className="inline-block mr-2" />
+                Users
               </Link>
             </li>
             <li className="block">
