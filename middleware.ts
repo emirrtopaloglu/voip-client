@@ -1,33 +1,29 @@
-import { NextResponse } from "next/server";
+"use server";
 
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { isAuth } from "./lib/utils";
 
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next();
+export function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const session = true;
 
-  // If path is safe, return response
-  const safePaths = ["/_next", "/favicon.ico"];
-  if (safePaths.some((safePath) => path.startsWith(safePath))) {
-    return res;
-  }
-
-  // If user is in auth pages and is authenticated, redirect to app
-  if (path.startsWith("/auth")) {
-    if (session) {
-      return NextResponse.redirect(new URL("/", req.url));
+  // If user is in auth pages and is authenticated, redirect to admin page
+  if (path.startsWith("/admin/auth")) {
+    if (isAuth(req.cookies)) {
+      return NextResponse.redirect(new URL("/admin/home", req.url));
     } else {
-      return res;
+      return NextResponse.next();
     }
   }
 
-  // If user is in app pages and is not authenticated, redirect to auth
-  if (!session) {
-    return NextResponse.redirect(new URL("/auth/login", req.url));
+  // If user is in admin pages and is not authenticated, redirect to auth page
+  if (!isAuth(req.cookies)) {
+    return NextResponse.redirect(new URL("/admin/auth/login", req.url));
   }
+
+  // If user is in admin pages and is authenticated, continue
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/:path*"],
+  matcher: ["/admin/:path*"],
 };

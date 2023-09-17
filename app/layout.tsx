@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <TooltipProvider delayDuration={200} skipDelayDuration={200}>
-          <LayoutProvider>{children}</LayoutProvider>
+          {children}
         </TooltipProvider>
       </body>
     </html>

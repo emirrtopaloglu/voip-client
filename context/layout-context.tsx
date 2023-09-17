@@ -19,7 +19,7 @@ export default function LayoutProvider({
   const [layout, setLayout] = useState<"vertical" | "blank">("blank");
 
   useEffect(() => {
-    if (pathname.startsWith("/auth")) {
+    if (pathname.includes("/auth/")) {
       setLayout("blank");
     } else {
       setLayout("vertical");
