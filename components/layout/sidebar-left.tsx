@@ -35,7 +35,7 @@ export default function SidebarLeft() {
           <ul className="space-y-2">
             <li className="block">
               <Link
-                href="/home"
+                href="/admin/home"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <Home size={16} className="inline-block mr-2" />
@@ -44,7 +44,7 @@ export default function SidebarLeft() {
             </li>
             <li className="block">
               <Link
-                href="/posts"
+                href="/admin/posts"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <PlusSquare size={16} className="inline-block mr-2" />
@@ -53,7 +53,7 @@ export default function SidebarLeft() {
             </li>
             <li className="block">
               <Link
-                href="/pages"
+                href="/admin/pages"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <Layers size={16} className="inline-block mr-2" />
@@ -62,7 +62,7 @@ export default function SidebarLeft() {
             </li>
             <li className="block">
               <Link
-                href="/menus"
+                href="/admin/menus"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <MenuSquare size={16} className="inline-block mr-2" />
@@ -71,7 +71,7 @@ export default function SidebarLeft() {
             </li>
             <li className="block">
               <Link
-                href="/roles"
+                href="/admin/roles"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <ShieldCheck size={16} className="inline-block mr-2" />
@@ -80,7 +80,7 @@ export default function SidebarLeft() {
             </li>
             <li className="block">
               <Link
-                href="/settings"
+                href="/admin/settings"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <Settings size={16} className="inline-block mr-2" />
