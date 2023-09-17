@@ -2,9 +2,14 @@ import {
   FileText,
   Grip,
   Home,
+  Layers,
   ListTodo,
+  MenuSquare,
   MessageSquarePlus,
+  PlusSquare,
   ScrollText,
+  Settings,
+  ShieldCheck,
   User2,
 } from "lucide-react";
 import Link from "next/link";
@@ -30,56 +35,56 @@ export default function SidebarLeft() {
           <ul className="space-y-2">
             <li className="block">
               <Link
-                href="/dashboard"
+                href="/home"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <Home size={16} className="inline-block mr-2" />
-                Dashboard
+                Home
               </Link>
             </li>
             <li className="block">
               <Link
-                href="/tasks"
+                href="/posts"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
-                <ListTodo size={16} className="inline-block mr-2" />
-                Tasks
+                <PlusSquare size={16} className="inline-block mr-2" />
+                Posts
               </Link>
             </li>
             <li className="block">
               <Link
-                href="/tasks"
+                href="/pages"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
-                <User2 size={16} className="inline-block mr-2" />
-                Customers
+                <Layers size={16} className="inline-block mr-2" />
+                Pages
               </Link>
             </li>
             <li className="block">
               <Link
-                href="/feedback"
+                href="/menus"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
-                <MessageSquarePlus size={16} className="inline-block mr-2" />
-                Feedback
+                <MenuSquare size={16} className="inline-block mr-2" />
+                Menus
               </Link>
             </li>
             <li className="block">
               <Link
-                href="/changelog"
+                href="/roles"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
-                <ScrollText size={16} className="inline-block mr-2" />
-                Changelog
+                <ShieldCheck size={16} className="inline-block mr-2" />
+                Roles
               </Link>
             </li>
             <li className="block">
               <Link
-                href="/documentation"
+                href="/settings"
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
-                <FileText size={16} className="inline-block mr-2" />
-                Documentation
+                <Settings size={16} className="inline-block mr-2" />
+                Settings
               </Link>
             </li>
           </ul>

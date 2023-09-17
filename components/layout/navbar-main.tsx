@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Sparkles } from "lucide-react";
+import { Bell, LogOut, Sparkles, User } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,8 +23,8 @@ export default function NavbarMain() {
       <div>
         <h6 className="text-xs bg-yellow-50 py-2 px-4 text-stone-600">
           <Sparkles size={16} className="inline-block mr-2 text-yellow-500" />
-          <span className="font-semibold">Voip</span> is in beta. Please
-          report any bugs or issues.
+          <span className="font-semibold">Voip</span> is in beta. Please report
+          any bugs or issues.
         </h6>
       </div>
       <div className="flex items-center">
@@ -52,10 +52,14 @@ export default function NavbarMain() {
             </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="mr-4">
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
+            <DropdownMenuItem>
+              <User size={16} className="inline-block mr-2" />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem className="!text-red-500">
+              <LogOut size={16} className="inline-block mr-2" />
+              Logout
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
