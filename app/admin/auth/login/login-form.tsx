@@ -45,7 +45,14 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
     try {
       setLoading(true);
-      console.log(data);
+      await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+      }).then((res) => {
+        if (res.ok) {
+          window.location.href = "/admin";
+        }
+      });
     } catch (error) {
       console.error(error);
     } finally {
