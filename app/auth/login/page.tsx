@@ -5,7 +5,7 @@ import Link from "next/link";
 import LoginForm from "./login-form";
 
 export const metadata: Metadata = {
-  title: "Login - Produs",
+  title: "Login - Voip",
 };
 
 export default function LoginPage() {
@@ -13,7 +13,7 @@ export default function LoginPage() {
     <div className="min-w-[360px] space-y-4">
       <div className="space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight text-stone-900 text-center">
-          Welcome to Produs
+          Welcome to Voip
         </h1>
         <p className="text-sm text-stone-400 text-center">
           Enter your email and login to your account.

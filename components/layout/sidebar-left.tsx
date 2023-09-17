@@ -23,7 +23,7 @@ export default function SidebarLeft() {
           size={24}
           className="text-stone-700 border w-10 h-10 p-2 cursor-pointer rounded"
         />
-        <span className="text-stone-900 font-medium text-lg">Produs</span>
+        <span className="text-stone-900 font-medium text-lg">Voip</span>
       </div>
       <div id="sidebar-inner">
         <nav>

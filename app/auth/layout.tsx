@@ -10,7 +10,7 @@ export default function AuthLayout({
       <div className="bg-stone-900 h-screen w-full p-10 flex flex-col justify-between text-white">
         <div className="flex items-center">
           <LayoutGrid size="24" />
-          <span className="text-white text-lg font-medium ml-2">Produs</span>
+          <span className="text-white text-lg font-medium ml-2">Voip</span>
         </div>
         <div>
           <p className="text-lg">

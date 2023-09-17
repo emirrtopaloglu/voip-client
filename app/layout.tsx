@@ -7,8 +7,8 @@ import LayoutProvider from "@/context/layout-context";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Produs",
-  description: "Product Management Platform",
+  title: "Voip",
+  description: "Customer Relationship Management for Voip",
 };
 
 export default function RootLayout({
