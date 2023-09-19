@@ -2,6 +2,8 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import type { User } from "./types";
+import { Button } from "@/components/ui/button";
+import { Edit, Trash } from "lucide-react";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -9,18 +11,9 @@ export const columns: ColumnDef<User>[] = [
     header: "ID",
   },
   {
-    accessorKey: "firstName",
-    header: "Name Surname",
-    cell: ({ row }) => (
-      <span>{`${row.getValue("firstName")} ${row.getValue("lastName")}`}</span>
-    ),
-  },
-  {
-    accessorKey: "lastName",
-    header: "Name Surname",
-    cell: ({ row }) => (
-      <span>{`${row.getValue("firstName")} ${row.getValue("lastName")}`}</span>
-    ),
+    accessorKey: "name",
+    accessorFn: (row) => `${row.firstName} ${row.lastName}`,
+    header: "Full Name",
   },
   {
     accessorKey: "email",
@@ -33,5 +26,18 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "createdAt",
     header: "Created At",
+  },
+  {
+    header: "Actions",
+    cell: (row) => (
+      <div className="space-x-2">
+        <Button variant="outline" size="icon" className="rounded-full w-8 h-8">
+          <Edit size={16} />
+        </Button>
+        <Button variant="outline" size="icon" className="rounded-full w-8 h-8">
+          <Trash size={16} className="text-red-500" />
+        </Button>
+      </div>
+    ),
   },
 ];

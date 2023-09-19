@@ -20,12 +20,12 @@ export default function NavbarMain() {
       id="app-header"
       className="bg-white py-2 px-4 flex items-center justify-between w-full h-16 border-b"
     >
-      <div>
-        <h6 className="text-xs bg-yellow-50 py-2 px-4 text-stone-600">
+      <div className="bg-yellow-50 py-2 px-4">
+        <p className="text-xs text-stone-600">
           <Sparkles size={16} className="inline-block mr-2 text-yellow-500" />
           <span className="font-semibold">Voip</span> is in beta. Please report
           any bugs or issues.
-        </h6>
+        </p>
       </div>
       <div className="flex items-center">
         <Tooltip>
