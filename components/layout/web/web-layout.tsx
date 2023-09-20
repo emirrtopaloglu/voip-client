@@ -9,10 +9,10 @@ export default function WebLayout({ children }: { children: React.ReactNode }) {
   if (pathname.startsWith("/admin")) return children;
 
   return (
-    <>
+    <div className="bg-stone-50">
       <Header />
       {children}
       <Footer />
-    </>
+    </div>
   );
 }
