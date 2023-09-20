@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import VerticalLayout from "@/components/layout/vertical-layout";
+import VerticalLayout from "@/components/layout/admin/vertical-layout";
 
 export default function AdminLayout({
   children,
