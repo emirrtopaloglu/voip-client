@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
         <TooltipProvider delayDuration={200} skipDelayDuration={200}>
           <WebLayout>{children}</WebLayout>
