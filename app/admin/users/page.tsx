@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { DataTable } from "./data-table";
-import { columns } from "./columns";
+import { DataTable } from "@/views/users/data-table";
+import { columns } from "@/views/users/columns";
 
 export default async function UsersPage() {
   const res = await fetch("http://localhost:3000/api/users");

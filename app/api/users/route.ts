@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import type { User } from "../../admin/users/types";
+import type { User } from "../../../views/users/types";
 export async function GET(req: NextRequest, res: NextResponse) {
   const users: User[] = [
     {
