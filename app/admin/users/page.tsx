@@ -4,8 +4,8 @@ import { DataTable } from "@/views/users/data-table";
 import { columns } from "@/views/users/columns";
 
 export default async function UsersPage() {
-  const res = await fetch("http://localhost:3000/api/users");
-  const { data: users } = await res.json();
+  // const res = await fetch("http://localhost:3000/api/users");
+  // const { data: users } = await res.json();
 
   return (
     <section id="users-page" className="space-y-4">
@@ -19,7 +19,7 @@ export default async function UsersPage() {
       <div>
         <DataTable
           columns={columns}
-          data={[...users, ...users, ...users, ...users]}
+          data={[]}
         />
       </div>
     </section>
