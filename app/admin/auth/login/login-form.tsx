@@ -50,7 +50,7 @@ export default function LoginForm() {
         body: JSON.stringify(data),
       }).then((res) => {
         if (res.ok) {
-          window.location.href = "/admin";
+          window?.location.reload();
         }
       });
     } catch (error) {
