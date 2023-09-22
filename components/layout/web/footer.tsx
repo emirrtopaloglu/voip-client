@@ -5,6 +5,7 @@ export default function Footer() {
         <img
           src="https://ehya.designspace.io/assets/images/logo.svg"
           className="h-6"
+          alt="footer logo"
         />
         <p className="text-sm text-stone-400">
           Copyright &copy; {new Date().getFullYear()}. All rights reserved.

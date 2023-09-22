@@ -42,6 +42,7 @@ export default async function RootPage() {
           <img
             src="https://ehya.designspace.io/assets/images/landing-saas2/hero@2x.png"
             className="w-2/3 h-auto object-contain"
+            alt="image"
           />
         </div>
       </div>
@@ -75,6 +76,7 @@ export default async function RootPage() {
           <img
             src="https://ehya.designspace.io/assets/images/landing-saas-illustration/ill-help@2x.png"
             className="w-2/3 h-auto object-contain"
+            alt="image"
           />
         </div>
       </div>
@@ -86,6 +88,7 @@ export default async function RootPage() {
             <img
               src="https://ehya.designspace.io/assets/images/landing-saas-illustration/ill-save-time.svg"
               className="w-2/3 h-auto object-contain"
+              alt="image"
             />
           </div>
           <div className="w-2/5 space-y-8">

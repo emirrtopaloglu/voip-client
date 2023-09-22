@@ -34,6 +34,7 @@ export default function Header() {
           <img
             src="https://ehya.designspace.io/assets/images/logo.svg"
             className="h-7"
+            alt="logo"
           />
         </div>
         <div className="flex items-center space-x-4">
