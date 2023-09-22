@@ -38,7 +38,7 @@ export default function LoginPage() {
         Continue with GitHub
       </Button>
       <p className="text-sm text-stone-400 text-center">
-        Don't have an account?{" "}
+        Dont have an account?{" "}
         <Link href="/auth/register" className="text-stone-900 font-medium">
           Register
         </Link>
