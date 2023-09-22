@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
+import LoginForm from "@/views/auth/login-form";
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import LoginForm from "./login-form";
 
 export const metadata: Metadata = {
   title: "Login - Voip",
@@ -39,7 +39,10 @@ export default function LoginPage() {
       </Button>
       <p className="text-sm text-stone-400 text-center">
         Dont have an account?{" "}
-        <Link href="/auth/register" className="text-stone-900 font-medium">
+        <Link
+          href="/admin/auth/register"
+          className="text-stone-900 font-medium"
+        >
           Register
         </Link>
       </p>
