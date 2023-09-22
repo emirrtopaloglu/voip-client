@@ -6,7 +6,7 @@ export default function AboutPage() {
       <PageHeader>
         <h1 className="text-4xl leading-relaxed text-stone-800">About Us</h1>
         <p className="text-base leading-relaxed text-stone-500 max-w-[60%]">
-          We are a team of passionate people whose goal is to improve everyone's
+          We are a team of passionate people whose goal is to improve everyones
           life through disruptive products. We build great products to solve
           your business problems.
         </p>
@@ -21,14 +21,14 @@ export default function AboutPage() {
         </p>
         <h2>Our Mission</h2>
         <p>
-          We are a team of passionate people whose goal is to improve everyone's
+          We are a team of passionate people whose goal is to improve everyones
           life through disruptive products. We build great products to solve
           your business problems. Our products are designed for small to medium
           size companies willing to optimize their performance.
         </p>
         <h3>Join Us and Enjoy</h3>
         <p>
-          We are a team of passionate people whose goal is to improve everyone's
+          We are a team of passionate people whose goal is to improve everyones
           life through disruptive products. We build great products to solve
           your business problems. Our products are designed for small to medium
           size companies willing to optimize their performance. Connect your
