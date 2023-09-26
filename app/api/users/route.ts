@@ -24,8 +24,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
     },
   ];
 
-  return NextResponse.json({
-    message: "Users found",
-    data: users,
-  });
+  return NextResponse.json(
+    {
+      message: "Users found",
+      data: users,
+    },
+    { status: 401 }
+  );
 }
