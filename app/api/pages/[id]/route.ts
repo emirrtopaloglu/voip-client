@@ -1,4 +1,4 @@
-import { isAuth } from "@/lib/utils";
+import { isAuth } from "@/libs/auth";
 import Page from "@/models/page";
 import errorGenerator from "@/utils/error";
 import { updatePageSchema } from "@/validations/page";

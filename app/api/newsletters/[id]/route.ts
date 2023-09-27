@@ -1,4 +1,4 @@
-import { isAuth } from "@/lib/utils";
+import { isAuth } from "@/libs/auth";
 import MailList from "@/models/mailList";
 import errorGenerator from "@/utils/error";
 import { updateNewsLetterSchema } from "@/validations/newsLetter";

@@ -8,9 +8,9 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import sanitizeHtml from "sanitize-html";
 import jwt from "jsonwebtoken";
-import { isAuth } from "@/lib/utils";
+import { isAuth } from "@/libs/auth";
 
-async function GET(request: NextRequest, res: NextResponse) {
+export async function GET(request: NextRequest, res: NextResponse) {
   try {
     const { offset, limit } = getOffsetLimitParams(request);
 

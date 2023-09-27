@@ -1,11 +1,8 @@
-import { isAuth } from "@/lib/utils";
+import { isAuth } from "@/libs/auth";
 import User from "@/models/user";
-import errorGenerator from "@/utils/error";
-import { hashPassword } from "@/utils/hash";
+
 import getOffsetLimitParams from "@/utils/pagination";
 
-import { createUserSchema } from "@/validations/user";
-import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = isAuth(async function GET(
