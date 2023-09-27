@@ -1,7 +1,8 @@
+import { isAuth } from "@/libs/auth";
 import LoginLog from "@/models/loginLog";
 import { NextResponse } from "next/server";
 
-export async function DELETE(request: Request, { params }) {
+export const DELETE = isAuth(async function DELETE(request: Request, params) {
   try {
     if (!params.id) {
       throw new Error("Geçersiz parametre: 'id' eksik veya geçerli değil.");
@@ -38,4 +39,4 @@ export async function DELETE(request: Request, { params }) {
       { status: 500 }
     );
   }
-}
+});

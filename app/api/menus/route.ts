@@ -1,3 +1,4 @@
+import { isAuth } from "@/libs/auth";
 import Menu from "@/models/menu";
 import errorGenerator from "@/utils/error";
 import slugify from "@/utils/slugify";
@@ -28,7 +29,7 @@ export async function GET(request: NextRequest, res: NextResponse) {
   }
 }
 
-export async function POST(request: Request) {
+export const POST = isAuth(async function POST(request: Request) {
   try {
     const body = await request.json();
 
@@ -56,4 +57,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
+});

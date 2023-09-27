@@ -46,14 +46,14 @@ Blog.init(
       defaultValue: true,
     },
     created_at: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: TIME,
+      defaultValue: Date,
     },
     updated_at: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: false,
-      defaultValue: TIME,
+      defaultValue: Date,
     },
   },
   {

@@ -42,11 +42,11 @@ User.init(
       allowNull: true,
     },
     last_login: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
     },
     created_at: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
     },
     is_verified: {

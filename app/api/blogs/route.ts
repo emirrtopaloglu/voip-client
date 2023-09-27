@@ -1,18 +1,17 @@
-import MailList from "@/models/mailList";
-import Menu from "@/models/menu";
+import Blog from "@/models/blog";
 import errorGenerator from "@/utils/error";
-import slugify from "@/utils/slugify";
-import { createMenuSchema } from "@/validations/menu";
 import getOffsetLimitParams from "@/utils/pagination";
+import { createBlogSchema } from "@/validations/blog";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
-import { createNewsLetterSchema } from "@/validations/newsLetter";
+import sanitizeHtml from "sanitize-html";
 import { isAuth } from "@/libs/auth";
+import User from "@/models/user";
 
-export const GET = isAuth(async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, user: User) {
   try {
     const { offset, limit } = getOffsetLimitParams(request);
-    const newsletters = await MailList.findAndCountAll({
+
+    const blogs = await Blog.findAndCountAll({
       offset: offset,
       limit: limit,
     });
@@ -20,8 +19,8 @@ export const GET = isAuth(async function GET(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        data: newsletters.rows,
-        totalCount: newsletters.count,
+        data: blogs.rows,
+        totalCount: blogs.count,
       },
       { status: 200 }
     );
@@ -34,18 +33,21 @@ export const GET = isAuth(async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-});
+}
 
-export const POST = isAuth(async function POST(request: Request) {
+export const POST = isAuth(async function POST(
+  request: Request,
+  userId: string
+) {
   try {
     const body = await request.json();
 
-    const validationResult = createNewsLetterSchema.parse(body);
-
-    const result = await MailList.create({
-      fullname: validationResult.fullname,
-      email: validationResult.email,
-      is_subscribed: true,
+    const validationResult = createBlogSchema.parse(body);
+    const result = await Blog.create({
+      ...validationResult,
+      content: sanitizeHtml(validationResult.content),
+      is_published: true,
+      user_id: +userId,
     });
 
     return NextResponse.json(

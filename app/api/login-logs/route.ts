@@ -3,8 +3,9 @@ import errorGenerator from "@/utils/error";
 import { createLoginLogSchema } from "@/validations/loginLog";
 import getOffsetLimitParams from "@/utils/pagination";
 import { NextRequest, NextResponse } from "next/server";
+import { isAuth } from "@/libs/auth";
 
-export async function GET(request: NextRequest) {
+export const GET = isAuth(async function GET(request: NextRequest) {
   try {
     const { offset, limit } = getOffsetLimitParams(request);
     const logs = await LoginLog.findAndCountAll({
@@ -29,9 +30,9 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+});
 
-export async function POST(request: Request) {
+export const POST = isAuth(async function POST(request: Request) {
   try {
     const body = await request.json();
 
@@ -62,4 +63,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
+});

@@ -25,7 +25,7 @@ LoginLog.init(
       allowNull: false,
     },
     created_at: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
     },
   },

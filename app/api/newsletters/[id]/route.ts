@@ -1,12 +1,10 @@
+import { isAuth } from "@/lib/utils";
 import MailList from "@/models/mailList";
-import Menu from "@/models/menu";
 import errorGenerator from "@/utils/error";
-import slugify from "@/utils/slugify";
-import { updateMenuSchema } from "@/validations/menu";
 import { updateNewsLetterSchema } from "@/validations/newsLetter";
 import { NextResponse } from "next/server";
 
-export async function DELETE(request: Request, { params }) {
+/* export async function DELETE(request: Request, { params }) {
   try {
     if (!params.id) {
       throw new Error("Geçersiz parametre: 'id' eksik veya geçerli değil.");
@@ -44,8 +42,8 @@ export async function DELETE(request: Request, { params }) {
     );
   }
 }
-
-export async function PUT(request: Request, { params }) {
+ */
+export const PUT = isAuth(async function PUT(request: Request, params) {
   try {
     if (!params.id) {
       throw new Error("Geçersiz parametre: 'id' eksik veya geçerli değil.");
@@ -63,7 +61,10 @@ export async function PUT(request: Request, { params }) {
       }
     );
 
-    if (result[0] === 0) {
+    // Research another way
+    const newsletter = await MailList.findByPk(params.id);
+
+    if (!newsletter) {
       return NextResponse.json(
         {
           success: false,
@@ -72,10 +73,15 @@ export async function PUT(request: Request, { params }) {
         { status: 404 }
       );
     }
+
+    if (result[0] === 0) {
+      throw new Error("Herhangi bir güncelleme yapılamadı.");
+    }
+
     return NextResponse.json(
       {
         success: true,
-        data: "Mail aboneliği başarıyla güncellendi",
+        data: newsletter,
       },
       { status: 200 }
     );
@@ -88,4 +94,4 @@ export async function PUT(request: Request, { params }) {
       { status: 500 }
     );
   }
-}
+});

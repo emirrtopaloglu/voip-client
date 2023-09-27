@@ -19,6 +19,7 @@ Page.init(
     slug: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     content: {
       type: DataTypes.TEXT,
@@ -46,14 +47,12 @@ Page.init(
       defaultValue: true,
     },
     created_at: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: TIME,
+      type: DataTypes.DATE,
+      allowNull: true,
     },
     updated_at: {
-      type: DataTypes.TIME,
-      allowNull: false,
-      defaultValue: TIME,
+      type: DataTypes.DATE,
+      allowNull: true,
     },
   },
   {

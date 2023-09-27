@@ -1,16 +1,55 @@
-import { isAuth } from "@/libs/auth";
-import Menu from "@/models/menu";
+import { isAuth } from "@/lib/utils";
+import Page from "@/models/page";
 import errorGenerator from "@/utils/error";
-import slugify from "@/utils/slugify";
-import { updateMenuSchema } from "@/validations/menu";
+import { updatePageSchema } from "@/validations/page";
 import { NextResponse } from "next/server";
+
+export async function GET(request: Request, { params }) {
+  try {
+    if (!params.id) {
+      throw new Error("Geçersiz parametre: 'id' eksik veya geçerli değil.");
+    }
+
+    const page = await Page.findOne({
+      where: {
+        slug: params.id, // Tricky way
+      },
+    });
+
+    if (!page) {
+      return NextResponse.json(
+        {
+          success: false,
+          data: "Sayfa bulunamadı",
+        },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(
+      {
+        success: true,
+        data: page,
+      },
+      { status: 200 }
+    );
+  } catch (err) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: err.message,
+      },
+      { status: 500 }
+    );
+  }
+}
 
 export const DELETE = isAuth(async function DELETE(request: Request, params) {
   try {
     if (!params.id) {
       throw new Error("Geçersiz parametre: 'id' eksik veya geçerli değil.");
     }
-    const result = await Menu.destroy({
+    const result = await Page.destroy({
       where: {
         id: params.id,
       },
@@ -20,7 +59,7 @@ export const DELETE = isAuth(async function DELETE(request: Request, params) {
       return NextResponse.json(
         {
           success: false,
-          error: "Menü öğesi bulunamadı",
+          error: "Sayfa öğesi bulunamadı",
         },
         { status: 404 }
       );
@@ -29,7 +68,7 @@ export const DELETE = isAuth(async function DELETE(request: Request, params) {
     return NextResponse.json(
       {
         success: true,
-        data: "Menü öğesi başarıyla silindi",
+        data: "Sayfa öğesi başarıyla silindi",
       },
       { status: 200 }
     );
@@ -51,10 +90,10 @@ export const PUT = isAuth(async function PUT(request: Request, params) {
     }
     const body = await request.json();
 
-    const validationResult = updateMenuSchema.parse(body);
+    const validationResult = updatePageSchema.parse(body);
 
-    const result = await Menu.update(
-      { ...validationResult, slug: slugify(validationResult.title) },
+    const result = await Page.update(
+      { ...validationResult },
       {
         where: {
           id: params.id,
@@ -63,13 +102,13 @@ export const PUT = isAuth(async function PUT(request: Request, params) {
     );
 
     // Research another way
-    const menu = await Menu.findByPk(params.id);
+    const page = await Page.findByPk(params.id);
 
-    if (!menu) {
+    if (!page) {
       return NextResponse.json(
         {
           success: false,
-          error: "Menü öğesi bulunamadı",
+          error: "Sayfa öğesi bulunamadı",
         },
         { status: 404 }
       );
@@ -78,11 +117,10 @@ export const PUT = isAuth(async function PUT(request: Request, params) {
     if (result[0] === 0) {
       throw new Error("Herhangi bir güncelleme yapılamadı.");
     }
-
     return NextResponse.json(
       {
         success: true,
-        data: menu,
+        data: page,
       },
       { status: 200 }
     );
