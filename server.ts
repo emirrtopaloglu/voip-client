@@ -41,17 +41,13 @@ app
   });
 
 process.on("SIGTERM", async () => {
-  /* logger.info("App Stopping... (Received SIGTERM)"); */
   console.info("App Stopping... (Received SIGTERM)");
   await database.close();
-  /* await redis.quit(); */
   process.exit(0);
 });
 
 process.on("SIGINT", async () => {
-  /* logger.info("App Stopping... (Received SIGINT)"); */
   console.info("App Stopping... (Received SIGINT)");
   await database.close();
-  /* await redis.quit(); */
   process.exit(0);
 });

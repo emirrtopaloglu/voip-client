@@ -41,12 +41,12 @@ export async function GET(request: NextRequest, res: NextResponse) {
 export const POST = isAuth(async function POST(request: Request) {
   try {
     const refreshToken = cookies().get("refreshToken").value;
-    console.log("refresh token : ", refreshToken);
+
     const tokenResult = await jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET_KEY
     );
-    console.log("token result : ", tokenResult);
+
     const body = await request.json();
 
     const validationResult = createPageSchema.parse(body);

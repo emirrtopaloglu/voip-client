@@ -7,7 +7,6 @@ export const isAuth = (
   handler: (req: NextRequest, params?: any, userId?: string) => void
 ) => {
   return async (req: NextRequest, { params }) => {
-    console.log("params : ", params);
     try {
       const cookieStore = cookies();
 
@@ -42,9 +41,9 @@ export const isAuth = (
       return NextResponse.json(
         {
           success: false,
-          error: "Bilinmeyen bir hata oluştu.",
+          error: "JWT expired",
         },
-        { status: 500 }
+        { status: 401 }
       );
     }
   };
