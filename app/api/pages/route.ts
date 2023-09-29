@@ -38,23 +38,20 @@ export async function GET(request: NextRequest, res: NextResponse) {
   }
 }
 
-export const POST = isAuth(async function POST(request: Request) {
+export const POST = isAuth(async function POST(
+  request: Request,
+  userId: string
+) {
   try {
-    const refreshToken = cookies().get("refreshToken").value;
-
-    const tokenResult = await jwt.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET_KEY
-    );
-
     const body = await request.json();
 
     const validationResult = createPageSchema.parse(body);
-    // TODO : Get user id from cookie or something else
+
     const result = await Page.create({
       ...validationResult,
       content: sanitizeHtml(validationResult.content),
       is_published: true,
+      user_id: +userId,
     });
 
     return NextResponse.json(

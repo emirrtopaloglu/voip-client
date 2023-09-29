@@ -7,48 +7,39 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import LoginLog from "@/models/loginLog";
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   try {
-    const body = await request.json();
+    const cookieStore = cookies();
+    const refreshToken = cookieStore.get("refreshToken");
 
-    const validationResult = loginSchema.parse(body);
+    const refreshClaims = jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET_KEY
+    );
 
-    const user = await User.findOne({
-      where: {
-        email: validationResult.email,
-        password: hashPassword(validationResult.password),
-      },
-    });
-
-    if (!user) {
+    if (!refreshClaims) {
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı adı ya da şifre hatalı.",
+          data: "Refresh token süresi dolmuş.",
         },
         { status: 401 }
       );
     }
 
-    if (!user.getDataValue("is_verified")) {
+    const userId = refreshClaims.sub;
+
+    const user = await User.findByPk(+userId);
+
+    if (!user) {
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı aktif değil.",
+          data: "Kullanıcı bulunamadı.",
         },
-        { status: 403 }
+        { status: 401 }
       );
     }
-
-    const _ = await User.update(
-      { last_login: Date.now() },
-      {
-        where: {
-          email: validationResult.email,
-          password: hashPassword(validationResult.password),
-        },
-      }
-    );
 
     const claims = {
       user_id: user.getDataValue("id"),
@@ -65,35 +56,8 @@ export async function POST(request: Request) {
       algorithm: "HS256",
     });
 
-    const refreshClaims = {
-      sub: user.getDataValue("id"),
-      exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
-    };
-
-    const refreshToken = jwt.sign(
-      refreshClaims,
-      process.env.REFRESH_TOKEN_SECRET_KEY,
-      {
-        algorithm: "HS256",
-      }
-    );
-
     cookies().set("token", token, {
       httpOnly: true,
-    });
-    cookies().set("refreshToken", refreshToken, {
-      httpOnly: true,
-    });
-
-    const user_ip =
-      request.headers.get("x-forwarded-for") ||
-      request.headers.get("x-real-ip");
-
-    const __ = LoginLog.create({
-      user_id: user.getDataValue("id"),
-      username:
-        user.getDataValue("firstname") + " " + user.getDataValue("lastname"),
-      user_ip: user_ip || "0.0.0.0",
     });
 
     return NextResponse.json(

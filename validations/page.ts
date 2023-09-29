@@ -14,7 +14,6 @@ export const createPageSchema = z
     meta_description: z.string().optional(),
     meta_keyword: z.string().optional(),
     featured_image: z.string().optional(),
-    user_id: z.number({ required_error: "User ID alanı zorunludur." }),
   })
   .strict("Lütfen sadece geçerli alanları gönderiniz.");
 

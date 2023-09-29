@@ -41,7 +41,7 @@ export const isAuth = (
       return NextResponse.json(
         {
           success: false,
-          error: "JWT expired",
+          error: "Token süresi dolmuş.",
         },
         { status: 401 }
       );
