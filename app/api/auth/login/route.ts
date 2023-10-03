@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı adı ya da şifre hatalı.",
+          error: "Kullanıcı adı ya da şifre hatalı.",
         },
         { status: 401 }
       );
@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı aktif değil.",
+          error: "Kullanıcı aktif değil.",
         },
         { status: 403 }
       );

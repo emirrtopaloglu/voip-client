@@ -20,7 +20,7 @@ export async function GET(request: Request, { params }) {
       return NextResponse.json(
         {
           success: false,
-          data: "Blog bulunamadı",
+          error: "Blog bulunamadı",
         },
         { status: 404 }
       );
