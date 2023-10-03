@@ -84,7 +84,7 @@ export default function RegisterForm() {
     try {
       setLoading(true);
       const res = await axios.post("/api/auth/register", {
-        data,
+        ...data,
         password_confirm: undefined
       });
 
