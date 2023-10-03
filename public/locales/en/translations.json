@@ -1,0 +1,16 @@
+{
+    "error": {
+        "required": "This field is required",
+        "invalidEmail": "Please enter a valid email",
+        "invalidPassword": "The password must be at least 8 characters long and contain at least 1 uppercase and 1 lowercase letter.",
+        "invalidPhone": "Please enter a valid phone",
+        "passwordsDontMatch": "Passwords don't match"
+    },
+    "response": {
+        "success": "Success!",
+        "register": {
+            "success": "Register successfully! Please activate your email.",
+            "failed": "Register failed! Please try again."
+        }
+    }
+}

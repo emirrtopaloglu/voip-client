@@ -24,7 +24,7 @@ export default function Header() {
     { title: "Home", href: "/" },
     { title: "About", href: "/about" },
     { title: "Contact", href: "/contact" },
-    { title: "Blog", href: "/blog" },
+    { title: "Blog", href: "/blog" }
   ];
 
   return (
@@ -45,8 +45,12 @@ export default function Header() {
               </MenuItem>
             ))}
           </ul>
-          <Button variant="outline">Login</Button>
-          <Button>Sign Up</Button>
+          <Link href="/admin/auth/login">
+            <Button variant="outline">Login</Button>
+          </Link>
+          <Link href="/admin/auth/register">
+            <Button>Sign Up</Button>
+          </Link>
         </div>
       </div>
     </div>
