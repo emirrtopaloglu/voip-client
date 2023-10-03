@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          data: "Aktivasyon epostasının süresi dolmuş.", // TO DO : Resend eklenebilir
+          error: "Aktivasyon epostasının süresi dolmuş.", // TO DO : Resend eklenebilir
         },
         { status: 403 }
       );

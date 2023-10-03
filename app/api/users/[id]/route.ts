@@ -22,7 +22,7 @@ export const GET = isAuth(async function GET(request: Request, { params }) {
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı bulunamadı",
+          error: "Kullanıcı bulunamadı",
         },
         { status: 404 }
       );

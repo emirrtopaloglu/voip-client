@@ -21,7 +21,7 @@ export async function GET(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          data: "Refresh token süresi dolmuş.",
+          error: "Refresh token süresi dolmuş.",
         },
         { status: 401 }
       );
@@ -35,7 +35,7 @@ export async function GET(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı bulunamadı.",
+          error: "Kullanıcı bulunamadı.",
         },
         { status: 401 }
       );

@@ -20,7 +20,7 @@ export async function GET(request: Request, { params }) {
       return NextResponse.json(
         {
           success: false,
-          data: "Sayfa bulunamadı",
+          error: "Sayfa bulunamadı",
         },
         { status: 404 }
       );
