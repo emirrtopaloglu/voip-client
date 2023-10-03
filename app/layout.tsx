@@ -22,7 +22,7 @@ export default function RootLayout({
             <Toaster
               position="bottom-right"
               toastOptions={{
-                duration: 2000
+                duration: 1500
               }}
             />
           </WebLayout>

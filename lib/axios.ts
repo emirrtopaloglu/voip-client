@@ -41,7 +41,13 @@ axios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.error(error);
+    if (Array.isArray(error?.response?.data?.error)) {
+      error?.response?.data?.error?.map((err: string) => {
+        toast.error(err);
+      })
+    } else {
+      toast.error(error?.response?.data?.error);
+    }
     // switch (error?.response?.status) {
     //   case 401:
     //     if (isServer) {

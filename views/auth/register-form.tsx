@@ -89,14 +89,10 @@ export default function RegisterForm() {
       });
 
       if (res.status == 201) {
-        toast.success(t("response.register.success"));
         router.replace("/admin/auth/login");
-      } else {
-        toast.error(t("response.register.failed"));
       }
     } catch (error) {
       console.error(error);
-      toast.error(t("response.register.failed"));
     } finally {
       setLoading(false);
     }
