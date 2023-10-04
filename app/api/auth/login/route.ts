@@ -6,6 +6,8 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import LoginLog from "@/models/loginLog";
+import nodemailer from "nodemailer";
+import getActivationMail from "@/utils/activationMailContent";
 
 export async function POST(request: Request) {
   try {
@@ -31,10 +33,48 @@ export async function POST(request: Request) {
     }
 
     if (!user.getDataValue("is_verified")) {
+      let transporter = nodemailer.createTransport({
+        host: "mail.duoloper.com",
+        port: 465,
+        auth: {
+          user: "furkan@duoloper.com",
+          pass: "Fuki_123!",
+        },
+      });
+
+      const fullName =
+        user.getDataValue("firstname") + " " + user.getDataValue("lastname");
+
+      const claims = {
+        user_id: user.getDataValue("id"),
+        exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      };
+
+      const token = jwt.sign(claims, process.env.ACCESS_TOKEN_SECRET_KEY, {
+        algorithm: "HS256",
+      });
+
+      const message = {
+        from: process.env.SENDER_EMAIL,
+        to: user.getDataValue("email"),
+        subject: "Eposta Aktivasyon",
+        html: getActivationMail(
+          fullName,
+          `${process.env.WEBSITE_URL}/api/activation?token=${token}`
+        ),
+      };
+
+      transporter.sendMail(message, (err, info) => {
+        if (err) {
+          throw new Error("Aktivasyon maili gönderilirken bir hata oluştu");
+        }
+      });
+
       return NextResponse.json(
         {
           success: false,
-          error: "Kullanıcı aktif değil.",
+          error:
+            "Kullanıcı aktif değil. Aktivasyon epostası yeniden gönderildi.",
         },
         { status: 403 }
       );
