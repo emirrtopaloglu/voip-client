@@ -1,0 +1,9 @@
+{
+    "error": {
+        "required": "Bu alan zorunludur",
+        "invalidEmail": "Lütfen geçerli bir email girin",
+        "invalidPassword": "Şifre en az 8 karakter uzunluğunda ve en az 1 büyük, 1 küçük harf içerecek şekilde olmalıdır.",
+        "invalidPhone": "Lütfen geçerli bir telefon girin",
+        "passwordsDontMatch": "Şifreler eşleşmiyor"
+    }
+}

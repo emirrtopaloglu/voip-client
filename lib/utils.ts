@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function isAuth(cookies: any) {
-  if (cookies.has("accessToken")) {
+  if (cookies.has("token")) {
     return true;
   }
 

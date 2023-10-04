@@ -6,41 +6,55 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
+import toast from "react-hot-toast";
+import axios from "@/lib/axios";
 
 const registerSchema = z
   .object({
+    firstname: z.string().min(1, { message: i18n.t("error.required") }),
+    lastname: z.string().min(1, { message: i18n.t("error.required") }),
     email: z
       .string()
-      .min(1, { message: "Email is required" })
-      .email({ message: "Enter a valid email" }),
+      .min(1, { message: i18n.t("error.required") })
+      .email({ message: i18n.t("error.invalidEmail") }),
     password: z
       .string()
-      .min(8, { message: "Password must be at least 8 characters" }),
-    confirm_password: z
+      .min(1, { message: i18n.t("error.required") })
+      .regex(new RegExp("^(?=.*[a-z])(?=.*[A-Z]).{8,}$"), {
+        message: i18n.t("error.invalidPassword")
+      }),
+    password_confirm: z
       .string()
-      .min(8, { message: "Password must be at least 8 characters" }),
-    terms: z
-      .boolean()
-      .refine((val) => val, { message: "You must agree to the terms" }),
+      .min(1, { message: i18n.t("error.required") })
+      .regex(new RegExp("^(?=.*[a-z])(?=.*[A-Z]).{8,}$"), {
+        message: i18n.t("error.invalidPassword")
+      }),
+    company_name: z.string().min(1, { message: i18n.t("error.required") }),
+    address: z.string().min(1, { message: i18n.t("error.required") }),
+    phone: z
+      .string()
+      .min(1, { message: i18n.t("error.required") })
+      .max(14, { message: i18n.t("error.invalidPhone") })
   })
-  .superRefine(({ confirm_password, password }, ctx) => {
-    if (confirm_password !== password) {
+  .superRefine(({ password_confirm, password }, ctx) => {
+    if (password_confirm !== password) {
       ctx.addIssue({
-        path: ["confirm_password"],
+        path: ["password_confirm"],
         code: "custom",
-        message: "Passwords do not match",
+        message: i18n.t("error.passwordsDontMatch")
       });
     }
   });
@@ -48,21 +62,35 @@ const registerSchema = z
 type RegisterSchema = z.infer<typeof registerSchema>;
 
 export default function RegisterForm() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
+      firstname: "",
+      lastname: "",
       email: "",
-      terms: false,
-    },
+      password: "",
+      password_confirm: "",
+      company_name: "",
+      address: "",
+      phone: ""
+    }
   });
 
   const onSubmit: SubmitHandler<RegisterSchema> = async (data) => {
     try {
       setLoading(true);
-      console.log(data);
+      const res = await axios.post("/api/auth/register", {
+        ...data,
+        password_confirm: undefined
+      });
+
+      if (res.status == 201) {
+        router.replace("/admin/auth/login");
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -73,19 +101,62 @@ export default function RegisterForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="Email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="firstname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="firstname">First Name</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="First Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastname"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="lastname">Last Name</FormLabel>
+                <FormControl>
+                  <Input type="text" placeholder="Last Name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="email">Email</FormLabel>
+                <FormControl>
+                  <Input type="email" placeholder="Email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="phone">Phone</FormLabel>
+                <FormControl>
+                  <Input type="tel" placeholder="Phone" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <div className="grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
@@ -102,12 +173,10 @@ export default function RegisterForm() {
           />
           <FormField
             control={form.control}
-            name="confirm_password"
+            name="password_confirm"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="confirm_password">
-                  Password (again)
-                </FormLabel>
+                <FormLabel htmlFor="password">Confirm Password</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
@@ -122,25 +191,27 @@ export default function RegisterForm() {
         </div>
         <FormField
           control={form.control}
-          name="terms"
+          name="company_name"
           render={({ field }) => (
-            <FormItem className="space-x-2 items-center">
+            <FormItem>
+              <FormLabel htmlFor="company_name">Company</FormLabel>
               <FormControl>
-                <Checkbox
-                  id="terms"
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  className="!ml-0"
-                />
+                <Input type="text" placeholder="Company" {...field} />
               </FormControl>
-              <FormLabel htmlFor="terms">
-                I agree to the{" "}
-                <Link href="/terms" className="text-stone-900">
-                  Terms of Service
-                </Link>
-                .
-              </FormLabel>
-              <FormMessage className="!ml-0" />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel htmlFor="address">Address</FormLabel>
+              <FormControl>
+                <Textarea placeholder="Address" {...field} />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
