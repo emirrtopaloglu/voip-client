@@ -1,11 +1,8 @@
 import User from "@/models/user";
 import errorGenerator from "@/utils/error";
-import { hashPassword } from "@/utils/hash";
-import { loginSchema } from "@/validations/user";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import LoginLog from "@/models/loginLog";
 
 export async function GET(request: Request) {
   try {
@@ -63,7 +60,7 @@ export async function GET(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        data: "Giriş başarılı.",
+        data: "Token yenileme başarılı.",
         access_token: token,
       },
       { status: 200 }
