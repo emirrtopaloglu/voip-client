@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 import LoginLog from "@/models/loginLog";
 import nodemailer from "nodemailer";
 import getActivationMail from "@/utils/activationMailContent";
+import sendEmail from "@/libs/sendEmail";
 
 export async function POST(request: Request) {
   try {
@@ -54,21 +55,19 @@ export async function POST(request: Request) {
         algorithm: "HS256",
       });
 
-      const message = {
-        from: process.env.SENDER_EMAIL,
-        to: user.getDataValue("email"),
-        subject: "Eposta Aktivasyon",
-        html: getActivationMail(
+      sendEmail(
+        user.getDataValue("email"),
+        "Eposta Aktivasyon",
+        getActivationMail(
           fullName,
           `${process.env.WEBSITE_URL}/api/activation?token=${token}`
         ),
-      };
-
-      transporter.sendMail(message, (err, info) => {
-        if (err) {
-          throw new Error("Aktivasyon maili gönderilirken bir hata oluştu");
+        (error, info) => {
+          if (error) {
+            throw new Error("Aktivasyon maili gönderilirken bir hata oluştu");
+          }
         }
-      });
+      );
 
       return NextResponse.json(
         {

@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 export async function GET(request: Request) {
   try {
     const cookieStore = cookies();
-    const refreshToken = cookieStore.get("refreshToken");
+    const refreshToken = cookieStore.get("refreshToken").value;
 
     const refreshClaims = jwt.verify(
       refreshToken,
