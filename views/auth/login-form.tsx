@@ -56,7 +56,7 @@ export default function LoginForm() {
         console.log(jwtDecode(res.data.access_token));
         const decoded_token: AuthState = jwtDecode(res.data.access_token);
         dispatch(login(decoded_token));
-        // window?.location.reload();
+        window?.location.reload();
       }
     } catch (error) {
       console.error(error);
