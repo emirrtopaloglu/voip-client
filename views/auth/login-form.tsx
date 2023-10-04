@@ -18,6 +18,9 @@ import * as z from "zod";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import axios from "@/lib/axios";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { type AuthState, login } from "./authSlice";
+import jwtDecode from "jwt-decode";
 
 const loginSchema = z.object({
   email: z
@@ -32,6 +35,7 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(false);
 
   const form = useForm<LoginSchema>({
@@ -48,7 +52,11 @@ export default function LoginForm() {
       const res = await axios.post("/api/auth/login", data);
 
       if (res.status == 200) {
-        window?.location.reload();
+        console.log(res.data);
+        console.log(jwtDecode(res.data.access_token));
+        const decoded_token: AuthState = jwtDecode(res.data.access_token);
+        dispatch(login(decoded_token));
+        // window?.location.reload();
       }
     } catch (error) {
       console.error(error);
