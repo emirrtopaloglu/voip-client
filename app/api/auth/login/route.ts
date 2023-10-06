@@ -6,6 +6,9 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import LoginLog from "@/models/loginLog";
+import nodemailer from "nodemailer";
+import getActivationMail from "@/utils/activationMailContent";
+import sendEmail from "@/libs/sendEmail";
 
 export async function POST(request: Request) {
   try {
@@ -24,17 +27,53 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı adı ya da şifre hatalı.",
+          error: "Kullanıcı adı ya da şifre hatalı.",
         },
         { status: 401 }
       );
     }
 
     if (!user.getDataValue("is_verified")) {
+      let transporter = nodemailer.createTransport({
+        host: "mail.duoloper.com",
+        port: 465,
+        auth: {
+          user: "furkan@duoloper.com",
+          pass: "Fuki_123!",
+        },
+      });
+
+      const fullName =
+        user.getDataValue("firstname") + " " + user.getDataValue("lastname");
+
+      const claims = {
+        user_id: user.getDataValue("id"),
+        exp: Math.floor(Date.now() / 1000) + 60 * 60,
+      };
+
+      const token = jwt.sign(claims, process.env.ACCESS_TOKEN_SECRET_KEY, {
+        algorithm: "HS256",
+      });
+
+      sendEmail(
+        user.getDataValue("email"),
+        "Eposta Aktivasyon",
+        getActivationMail(
+          fullName,
+          `${process.env.WEBSITE_URL}/api/activation?token=${token}`
+        ),
+        (error, info) => {
+          if (error) {
+            throw new Error("Aktivasyon maili gönderilirken bir hata oluştu");
+          }
+        }
+      );
+
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı aktif değil.",
+          error:
+            "Kullanıcı aktif değil. Aktivasyon epostası yeniden gönderildi.",
         },
         { status: 403 }
       );
