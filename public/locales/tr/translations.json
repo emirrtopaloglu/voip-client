@@ -15,6 +15,7 @@
         "phone": "Telefon",
         "company": "Şirket",
         "createdAt": "Oluşturma Tarihi",
+        "updatedAt": "Düzenlenme Tarihi",
         "actions": "İşlemler",
         "edit": "Düzenle",
         "delete": "Sil",
@@ -23,7 +24,9 @@
         "save": "Kaydet",
         "firstName": "Ad",
         "lastName": "Soyad",
-        "address": "Adres"
+        "address": "Adres",
+        "title": "Başlık",
+        "status": "Durum"
     },
     "menu": {
         "home": "Anasayfa",
@@ -38,5 +41,12 @@
         "createUser": "Kullanıcı Oluştur",
         "editUser": "Kullanıcıyı Düzenle",
         "deleteUserText": "Bu kullanıcıyı silmek istediğinizden emin misiniz?"
+    },
+    "posts": {
+        "createPost": "Yazı Oluştur",
+        "editPost": "Yazıyı Düzenle",
+        "deletePostText": "Bu yazıyı silmek istediğinizden emin misiniz?",
+        "published": "Yayınlandı",
+        "draft": "Taslak"
     }
 }
