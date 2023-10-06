@@ -3,14 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -18,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import axios from "@/lib/axios";
 
 const loginSchema = z.object({
   email: z
@@ -26,7 +26,7 @@ const loginSchema = z.object({
     .email({ message: "Enter a valid email" }),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long" }),
+    .min(8, { message: "Password must be at least 8 characters long" })
 });
 
 type LoginSchema = z.infer<typeof loginSchema>;
@@ -38,21 +38,18 @@ export default function LoginForm() {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
-      password: "",
-    },
+      password: ""
+    }
   });
 
   const onSubmit: SubmitHandler<LoginSchema> = async (data) => {
     try {
       setLoading(true);
-      await fetch("/api/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-      }).then((res) => {
-        if (res.ok) {
-          window?.location.reload();
-        }
-      });
+      const res = await axios.post("/api/auth/login", data);
+
+      if (res.status == 200) {
+        window?.location.reload();
+      }
     } catch (error) {
       console.error(error);
     } finally {

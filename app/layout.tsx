@@ -1,19 +1,15 @@
+"use client";
 import "./globals.css";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { usePathname } from "next/navigation";
 import WebLayout from "@/components/layout/web/web-layout";
+import { Toaster } from "react-hot-toast";
+import "@/lib/i18n";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Voip",
-  description: "Customer Relationship Management for Voip",
-};
-
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {
@@ -21,7 +17,15 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
         <TooltipProvider delayDuration={200} skipDelayDuration={200}>
-          <WebLayout>{children}</WebLayout>
+          <WebLayout>
+            {children}
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                duration: 1500
+              }}
+            />
+          </WebLayout>
         </TooltipProvider>
       </body>
     </html>
