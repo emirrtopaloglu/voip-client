@@ -9,11 +9,7 @@ export const metadata: Metadata = {
 export default async function UsersPage() {
   return (
     <section id="users-page" className="space-y-4">
-      <PageHeader
-        title="menu.users"
-        buttonText="users.createUser"
-        buttonHref="/admin/users/create"
-      />
+      <PageHeader title="menu.users" />
       <UsersTable />
     </section>
   );

@@ -6,8 +6,8 @@ import Link from "next/link";
 
 interface PageHeaderProps {
   title: string;
-  buttonText: string;
-  buttonHref: string;
+  buttonText?: string;
+  buttonHref?: string;
 }
 
 export default function PageHeader({
