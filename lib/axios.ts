@@ -50,25 +50,6 @@ axios.interceptors.response.use(
         toast.error(error?.response?.data?.error);
       }
     }
-    // switch (error?.response?.status) {
-    //   case 401:
-    //     if (isServer) {
-    //       const { cookies } = await import("next/headers");
-    //       cookies().set("token", "", {
-    //         path: "/",
-    //         expires: new Date(0)
-    //       });
-    //       cookies().set("refreshToken", "", {
-    //         path: "/",
-    //         expires: new Date(0)
-    //       });
-    //     } else {
-    //       document.cookie =
-    //         "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    //       window.location.href = "/admin/auth/login";
-    //       toast.error("Session expired please login again.");
-    //     }
-    // }
     return Promise.reject(error);
   }
 );

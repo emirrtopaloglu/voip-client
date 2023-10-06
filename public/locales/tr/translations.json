@@ -5,5 +5,33 @@
         "invalidPassword": "Şifre en az 8 karakter uzunluğunda ve en az 1 büyük, 1 küçük harf içerecek şekilde olmalıdır.",
         "invalidPhone": "Lütfen geçerli bir telefon girin",
         "passwordsDontMatch": "Şifreler eşleşmiyor"
+    },
+    "common": {
+        "itemsPerPage": "Sayfa başına öğe",
+        "search": "Ara",
+        "select": "Seç",
+        "name": "İsim",
+        "email": "Eposta",
+        "phone": "Telefon", 
+        "company": "Şirket",
+        "createdAt": "Oluşturma Tarihi",
+        "actions": "İşlemler",
+        "edit": "Düzenle",
+        "delete": "Sil",
+        "cancel": "İptal",
+        "areYouSure": "Emin misiniz?"
+    },
+    "menu": {
+        "home": "Anasayfa",
+        "users": "Kullanıcılar",
+        "posts": "Yazılar",
+        "pages": "Sayfalar",
+        "menus": "Menüler",
+        "roles": "Roller",
+        "settings": "Ayarlar"
+    },
+    "users": {
+        "createUser": "Kullanıcı Oluştur",
+        "deleteUserText": "Bu kullanıcıyı silmek istediğinizden emin misiniz?"
     }
 }

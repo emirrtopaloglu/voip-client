@@ -1,9 +1,9 @@
 export interface User {
     id: number;
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     email: string;
-    companyName: string;
+    company_name: string;
     address: string;
     createdAt: Date | string;
     lastLogin: Date | string;
