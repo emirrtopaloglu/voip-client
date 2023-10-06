@@ -6,7 +6,7 @@ import { updatePageSchema } from "@/validations/page";
 import { updateUserSchema } from "@/validations/user";
 import { NextResponse } from "next/server";
 
-export const GET = isAuth(async function GET(request: Request, { params }) {
+export const GET = isAuth(async function GET(request: Request, params) {
   try {
     if (!params.id) {
       throw new Error("Geçersiz parametre: 'id' eksik veya geçerli değil.");
