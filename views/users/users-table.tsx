@@ -25,6 +25,7 @@ import {
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import moment from "moment";
+import { Badge } from "@/components/ui/badge";
 
 export default function UsersTable() {
   const [data, setData] = useState([]);
@@ -100,7 +101,8 @@ export default function UsersTable() {
     },
     {
       accessorKey: "company_name",
-      header: i18n.t("common.company")
+      header: i18n.t("common.company"),
+      cell: ({ row }) => <Badge variant="outline">{row.getValue("company_name")}</Badge>
     },
     {
       accessorKey: "created_at",

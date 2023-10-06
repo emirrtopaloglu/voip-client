@@ -6,7 +6,7 @@ import { updatePageSchema } from "@/validations/page";
 import { updateUserSchema } from "@/validations/user";
 import { NextResponse } from "next/server";
 
-export const GET = isAuth(async function GET(request: Request, { params }) {
+export const GET = isAuth(async function GET(request: Request, params) {
   try {
     if (!params.id) {
       throw new Error("Geçersiz parametre: 'id' eksik veya geçerli değil.");
@@ -14,15 +14,15 @@ export const GET = isAuth(async function GET(request: Request, { params }) {
 
     const user = await User.findOne({
       where: {
-        id: params.id,
-      },
+        id: params.id
+      }
     });
 
     if (!user) {
       return NextResponse.json(
         {
           success: false,
-          data: "Kullanıcı bulunamadı",
+          data: "Kullanıcı bulunamadı"
         },
         { status: 404 }
       );
@@ -31,7 +31,7 @@ export const GET = isAuth(async function GET(request: Request, { params }) {
     return NextResponse.json(
       {
         success: true,
-        data: user,
+        data: user
       },
       { status: 200 }
     );
@@ -39,7 +39,7 @@ export const GET = isAuth(async function GET(request: Request, { params }) {
     return NextResponse.json(
       {
         success: false,
-        error: err.message,
+        error: err.message
       },
       { status: 500 }
     );
@@ -53,15 +53,15 @@ export const DELETE = isAuth(async function DELETE(request: Request, params) {
     }
     const result = await User.destroy({
       where: {
-        id: params.id,
-      },
+        id: params.id
+      }
     });
 
     if (result === 0) {
       return NextResponse.json(
         {
           success: false,
-          error: "Kullanıcı bulunamadı",
+          error: "Kullanıcı bulunamadı"
         },
         { status: 404 }
       );
@@ -70,7 +70,7 @@ export const DELETE = isAuth(async function DELETE(request: Request, params) {
     return NextResponse.json(
       {
         success: true,
-        data: "Kullanıcı başarıyla silindi",
+        data: "Kullanıcı başarıyla silindi"
       },
       { status: 200 }
     );
@@ -78,7 +78,7 @@ export const DELETE = isAuth(async function DELETE(request: Request, params) {
     return NextResponse.json(
       {
         success: false,
-        error: err.message,
+        error: err.message
       },
       { status: 500 }
     );
@@ -98,8 +98,8 @@ export const PUT = isAuth(async function PUT(request: Request, params) {
       { ...validationResult },
       {
         where: {
-          id: params.id,
-        },
+          id: params.id
+        }
       }
     );
 
@@ -109,7 +109,7 @@ export const PUT = isAuth(async function PUT(request: Request, params) {
       return NextResponse.json(
         {
           success: false,
-          error: "Kullanıcı bulunamadı",
+          error: "Kullanıcı bulunamadı"
         },
         { status: 404 }
       );
@@ -121,7 +121,7 @@ export const PUT = isAuth(async function PUT(request: Request, params) {
     return NextResponse.json(
       {
         success: true,
-        data: user,
+        data: user
       },
       { status: 200 }
     );
@@ -129,7 +129,7 @@ export const PUT = isAuth(async function PUT(request: Request, params) {
     return NextResponse.json(
       {
         success: false,
-        error: errorGenerator(err),
+        error: errorGenerator(err)
       },
       { status: 500 }
     );

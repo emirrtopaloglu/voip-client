@@ -12,14 +12,18 @@
         "select": "Seç",
         "name": "İsim",
         "email": "Eposta",
-        "phone": "Telefon", 
+        "phone": "Telefon",
         "company": "Şirket",
         "createdAt": "Oluşturma Tarihi",
         "actions": "İşlemler",
         "edit": "Düzenle",
         "delete": "Sil",
         "cancel": "İptal",
-        "areYouSure": "Emin misiniz?"
+        "areYouSure": "Emin misiniz?",
+        "save": "Kaydet",
+        "firstName": "Ad",
+        "lastName": "Soyad",
+        "address": "Adres"
     },
     "menu": {
         "home": "Anasayfa",
@@ -32,6 +36,7 @@
     },
     "users": {
         "createUser": "Kullanıcı Oluştur",
+        "editUser": "Kullanıcıyı Düzenle",
         "deleteUserText": "Bu kullanıcıyı silmek istediğinizden emin misiniz?"
     }
 }
