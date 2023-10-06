@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import axios from "@/lib/axios";
 import { Loader2, Edit, Trash } from "lucide-react";
 import { type ColumnDef } from "@tanstack/react-table";
-import type { User } from "./types";
 import i18n from "@/lib/i18n";
 import Link from "next/link";
 import {
@@ -26,6 +25,17 @@ import {
 } from "@/components/ui/alert-dialog";
 import moment from "moment";
 import { Badge } from "@/components/ui/badge";
+
+interface User {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  company_name: string;
+  address: string;
+  createdAt: Date | string;
+  lastLogin: Date | string;
+}
 
 export default function UsersTable() {
   const [data, setData] = useState([]);
@@ -102,7 +112,9 @@ export default function UsersTable() {
     {
       accessorKey: "company_name",
       header: i18n.t("common.company"),
-      cell: ({ row }) => <Badge variant="outline">{row.getValue("company_name")}</Badge>
+      cell: ({ row }) => (
+        <Badge variant="outline">{row.getValue("company_name")}</Badge>
+      )
     },
     {
       accessorKey: "created_at",
