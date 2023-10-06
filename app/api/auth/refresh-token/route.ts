@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     const refreshToken = cookieStore.get("refreshToken").value;
 
     const refreshClaims = jwt.verify(
-      refreshToken,
+      refreshToken.value,
       process.env.REFRESH_TOKEN_SECRET_KEY
     );
 
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: "Refresh token süresi dolmuş.",
+          error: "Refresh token süresi dolmuş."
         },
         { status: 401 }
       );
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: "Kullanıcı bulunamadı.",
+          error: "Kullanıcı bulunamadı."
         },
         { status: 401 }
       );
@@ -46,22 +46,22 @@ export async function GET(request: Request) {
       company_name: user.getDataValue("company_name"),
       address: user.getDataValue("address"),
       last_login: user.getDataValue("last_login"),
-      exp: Math.floor(Date.now() / 1000) + 15 * 60, // 15 dakika */
+      exp: Math.floor(Date.now() / 1000) + 15 * 60 // 15 dakika */
     };
 
     const token = jwt.sign(claims, process.env.ACCESS_TOKEN_SECRET_KEY, {
-      algorithm: "HS256",
+      algorithm: "HS256"
     });
 
     cookies().set("token", token, {
-      httpOnly: true,
+      httpOnly: true
     });
 
     return NextResponse.json(
       {
         success: true,
         data: "Token yenileme başarılı.",
-        access_token: token,
+        access_token: token
       },
       { status: 200 }
     );
@@ -69,7 +69,7 @@ export async function GET(request: Request) {
     return NextResponse.json(
       {
         success: false,
-        error: errorGenerator(err),
+        error: errorGenerator(err)
       },
       { status: 500 }
     );

@@ -41,32 +41,15 @@ axios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (Array.isArray(error?.response?.data?.error)) {
-      error?.response?.data?.error?.map((err: string) => {
-        toast.error(err);
-      })
-    } else {
-      toast.error(error?.response?.data?.error);
+    if (error?.response?.data?.error) {
+      if (Array.isArray(error?.response?.data?.error)) {
+        error?.response?.data?.error?.map((err: string) => {
+          toast.error(err);
+        });
+      } else {
+        toast.error(error?.response?.data?.error);
+      }
     }
-    // switch (error?.response?.status) {
-    //   case 401:
-    //     if (isServer) {
-    //       const { cookies } = await import("next/headers");
-    //       cookies().set("token", "", {
-    //         path: "/",
-    //         expires: new Date(0)
-    //       });
-    //       cookies().set("refreshToken", "", {
-    //         path: "/",
-    //         expires: new Date(0)
-    //       });
-    //     } else {
-    //       document.cookie =
-    //         "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    //       window.location.href = "/admin/auth/login";
-    //       toast.error("Session expired please login again.");
-    //     }
-    // }
     return Promise.reject(error);
   }
 );
