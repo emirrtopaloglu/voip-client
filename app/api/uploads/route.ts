@@ -1,6 +1,8 @@
 import { isAuth } from "@/libs/auth";
+import slugify from "@/utils/slugify";
 import { mkdir, writeFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
+import path from "path";
 
 export const POST = isAuth(async function POST(
   request: Request,
@@ -23,14 +25,18 @@ export const POST = isAuth(async function POST(
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const uploadFolderPath = `./uploads/`;
-    const path = `${uploadFolderPath}${file.name}`;
-    await mkdir(uploadFolderPath, { recursive: true });
-    await writeFile(path, buffer);
+    const fileNameWithoutExtension = path.parse(file.name).name;
+    const fileExtension = path.extname(file.name);
 
+    const filePath = `${uploadFolderPath}${slugify(
+      fileNameWithoutExtension
+    )}${fileExtension}`;
+    await mkdir(uploadFolderPath, { recursive: true });
+    await writeFile(filePath, buffer);
     return NextResponse.json(
       {
         success: true,
-        data: path,
+        data: "/api" + filePath.substring(1),
       },
       { status: 201 }
     );
