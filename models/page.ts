@@ -37,10 +37,6 @@ Page.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     is_published: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
