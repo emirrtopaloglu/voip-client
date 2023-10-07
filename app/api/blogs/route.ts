@@ -47,7 +47,6 @@ export const POST = isAuth(async function POST(
       ...validationResult,
       content: sanitizeHtml(validationResult.content),
       is_published: true,
-      user_id: +userId,
     });
 
     return NextResponse.json(
