@@ -4,6 +4,8 @@
         "invalidEmail": "Lütfen geçerli bir email girin",
         "invalidPassword": "Şifre en az 8 karakter uzunluğunda ve en az 1 büyük, 1 küçük harf içerecek şekilde olmalıdır.",
         "invalidPhone": "Lütfen geçerli bir telefon girin",
+        "invalidImage": "Lütfen bir resim yükleyin",
+        "imageTooLarge": "Resim boyutu 5MB'den büyük olamaz",
         "passwordsDontMatch": "Şifreler eşleşmiyor"
     },
     "common": {
@@ -26,7 +28,9 @@
         "lastName": "Soyad",
         "address": "Adres",
         "title": "Başlık",
-        "status": "Durum"
+        "status": "Durum",
+        "publish": "Yayınla",
+        "selectFile": "Yüklemek için bir dosya seçin"
     },
     "menu": {
         "home": "Anasayfa",
@@ -47,6 +51,16 @@
         "editPost": "Yazıyı Düzenle",
         "deletePostText": "Bu yazıyı silmek istediğinizden emin misiniz?",
         "published": "Yayınlandı",
-        "draft": "Taslak"
+        "draft": "Taslak",
+        "slug": "URL",
+        "featuredImage": "Öne Çıkan Görsel",
+        "content": "İçerik",
+        "writeHere": "Buraya yazın...",
+        "metaDescription": "Meta Açıklama",
+        "metaKeywords": "Meta Anahtar Kelimeler"
+    },
+    "uploads": {
+        "selectFile": "Yüklemek için bir dosya seçin",
+        "uploadFile": "Dosya Yükle"
     }
 }

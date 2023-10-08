@@ -4,6 +4,8 @@
         "invalidEmail": "Please enter a valid email",
         "invalidPassword": "The password must be at least 8 characters long and contain at least 1 uppercase and 1 lowercase letter.",
         "invalidPhone": "Please enter a valid phone",
+        "invalidImage": "Please upload a image",
+        "imageTooLarge": "Image size must be less than 5MB",
         "passwordsDontMatch": "Passwords don't match"
     },
     "response": {
@@ -33,7 +35,10 @@
         "lastName": "Last Name",
         "address": "Address",
         "title": "Title",
-        "status": "Durum"
+        "status": "Status",
+        "publish": "Publish",
+        "upload": "Upload",
+        "preview": "Preview"
     },
     "menu": {
         "home": "Home",
@@ -54,6 +59,16 @@
         "editPost": "Edit Post",
         "deletePostText": "Are you sure you want to delete this post?",
         "published": "Published",
-        "draft": "Draft"
+        "draft": "Draft",
+        "slug": "Slug",
+        "featuredImage": "Featured Image",
+        "content": "Content",
+        "writeHere": "Write your post here...",
+        "metaDescription": "Meta Description",
+        "metaKeywords": "Meta Keywords"
+    },
+    "uploads": {
+        "selectFile": "Select a file to upload",
+        "uploadFile": "Upload File"
     }
 }
