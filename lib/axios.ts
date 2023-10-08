@@ -13,22 +13,22 @@ const axios = Axios.create({
 
 axios.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    if (isServer) {
-      const { cookies } = await import("next/headers");
-      const token = cookies().get("accessToken")?.value;
+    // if (isServer) {
+    //   const { cookies } = await import("next/headers");
+    //   const token = cookies().get("accessToken")?.value;
 
-      if (token) {
-        config.headers["Authorization"] = `Bearer ${token}`;
-      }
-    } else {
-      const token = document.cookie.replace(
-        /(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/,
-        "$1"
-      );
-      if (token) {
-        config.headers["Authorization"] = `Bearer ${token}`;
-      }
-    }
+    //   if (token) {
+    //     config.headers["Authorization"] = `Bearer ${token}`;
+    //   }
+    // } else {
+    //   const token = document.cookie.replace(
+    //     /(?:(?:^|.*;\s*)accessToken\s*=\s*([^;]*).*$)|^.*$/,
+    //     "$1"
+    //   );
+    //   if (token) {
+    //     config.headers["Authorization"] = `Bearer ${token}`;
+    //   }
+    // }
     return config;
   },
   async (error) => {
@@ -41,14 +41,22 @@ axios.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error?.response?.data?.error) {
+    if (!isServer) {
       if (Array.isArray(error?.response?.data?.error)) {
-        error?.response?.data?.error?.map((err: string) => {
+        error.response.data.error.forEach((err: string) => {
           toast.error(err);
         });
       } else {
         toast.error(error?.response?.data?.error);
       }
+    }
+
+    const originalRequest = error.config;
+    if (error.response.status == 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      await axios.get("/api/auth/refresh-token");
+
+      return axios(originalRequest);
     }
     return Promise.reject(error);
   }

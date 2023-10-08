@@ -26,18 +26,16 @@ import {
 import moment from "moment";
 import { Badge } from "@/components/ui/badge";
 
-interface User {
+interface Post {
   id: number;
-  firstname: string;
-  lastname: string;
-  email: string;
-  company_name: string;
-  address: string;
-  createdAt: Date | string;
-  lastLogin: Date | string;
+  slug: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+  is_published: boolean;
 }
 
-export default function UsersTable() {
+export default function PostsTable() {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -45,10 +43,10 @@ export default function UsersTable() {
   const [loading, setLoading] = useState(false);
   const [buttonLoading, setButtonLoading] = useState(false);
 
-  const getUsersList = async (limit: number, page: number) => {
+  const getPostsList = async (limit: number, page: number) => {
     try {
       setLoading(true);
-      const res = await axios.get(`/api/users?limit=${limit}&page=${page}`);
+      const res = await axios.get(`/api/blogs?limit=${limit}&page=${page}`);
       setData(res.data.data);
       setTotalCount(res.data.totalCount);
     } catch (error) {
@@ -59,27 +57,27 @@ export default function UsersTable() {
   };
 
   useEffect(() => {
-    getUsersList(limit, page);
+    getPostsList(limit, page);
   }, []);
 
   const handlePageChange = (page: number) => {
     setPage(page);
-    getUsersList(limit, page);
+    getPostsList(limit, page);
   };
 
   const handleLimitChange = (limit: number) => {
     setLimit(limit);
-    getUsersList(limit, page);
+    getPostsList(limit, page);
   };
 
-  const deleteUser = async (id: number) => {
+  const deletePost = async (id: number) => {
     try {
       setButtonLoading(true);
-      const res = await axios.delete(`/api/users/${id}`);
+      const res = await axios.delete(`/api/blogs/${id}`);
       if (res.data.success) {
-        getUsersList(limit, page);
+        getPostsList(limit, page);
       }
-      getUsersList(limit, page);
+      getPostsList(limit, page);
     } catch (error) {
       console.error(error);
     } finally {
@@ -87,39 +85,47 @@ export default function UsersTable() {
     }
   };
 
-  const columns: ColumnDef<User>[] = [
+  const columns: ColumnDef<Post>[] = [
     {
       accessorKey: "id",
       header: "ID"
     },
     {
-      accessorKey: "name",
-      header: i18n.t("common.name"),
+      accessorKey: "title",
+      header: i18n.t("common.title"),
       cell: ({ row }) => (
-        <Link href={"/admin/users/" + row.original.id} className="font-medium">
-          {row.original.firstname} {row.original.lastname}
+        <Link href={"/admin/posts/" + row.original.slug} className="font-medium">
+          {row.original.title}
         </Link>
-      )
-    },
-    {
-      accessorKey: "email",
-      header: i18n.t("common.email")
-    },
-    {
-      accessorKey: "phone",
-      header: i18n.t("common.phone")
-    },
-    {
-      accessorKey: "company_name",
-      header: i18n.t("common.company"),
-      cell: ({ row }) => (
-        <Badge variant="outline">{row.getValue("company_name")}</Badge>
       )
     },
     {
       accessorKey: "created_at",
       header: i18n.t("common.createdAt"),
-      cell: ({ row }) => moment(row.getValue("created_at")).format("LLL")
+      cell: ({ row }) => (
+        <span>{moment(row.original.created_at).format("LLL")}</span>
+      )
+    },
+    {
+      accessorKey: "updated_at",
+      header: i18n.t("common.updatedAt"),
+      cell: ({ row }) => (
+        <span>{moment(row.original.updated_at).format("LLL")}</span>
+      )
+    },
+    {
+      accessorKey: "is_published",
+      header: i18n.t("common.status"),
+      cell: ({ row }) => (
+        <Badge
+          variant={row.original.is_published ? "default" : "secondary"}
+          className="px-2"
+        >
+          {row.original.is_published
+            ? i18n.t("posts.published")
+            : i18n.t("posts.draft")}
+        </Badge>
+      )
     },
     {
       header: i18n.t("common.actions"),
@@ -127,7 +133,7 @@ export default function UsersTable() {
         <div className="space-x-2">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link href={"/admin/users/" + row.original.id}>
+              <Link href={"/admin/posts/" + row.original.slug}>
                 <Button
                   variant="outline"
                   size="icon"
@@ -160,13 +166,13 @@ export default function UsersTable() {
                 {i18n.t("common.areYouSure")}
               </AlertDialogHeader>
               <AlertDialogDescription>
-                {i18n.t("users.deleteUserText")}
+                {i18n.t("posts.deletePostText")}
               </AlertDialogDescription>
               <AlertDialogFooter>
                 <AlertDialogCancel>{i18n.t("common.cancel")}</AlertDialogCancel>
                 <AlertDialogAction
                   variant="destructive"
-                  onClick={() => deleteUser(row.original.id)}
+                  onClick={() => deletePost(row.original.id)}
                 >
                   {i18n.t("common.delete")}
                 </AlertDialogAction>

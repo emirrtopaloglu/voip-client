@@ -4,6 +4,8 @@
         "invalidEmail": "Lütfen geçerli bir email girin",
         "invalidPassword": "Şifre en az 8 karakter uzunluğunda ve en az 1 büyük, 1 küçük harf içerecek şekilde olmalıdır.",
         "invalidPhone": "Lütfen geçerli bir telefon girin",
+        "invalidImage": "Lütfen bir resim yükleyin",
+        "imageTooLarge": "Resim boyutu 5MB'den büyük olamaz",
         "passwordsDontMatch": "Şifreler eşleşmiyor"
     },
     "common": {
@@ -15,6 +17,7 @@
         "phone": "Telefon",
         "company": "Şirket",
         "createdAt": "Oluşturma Tarihi",
+        "updatedAt": "Düzenlenme Tarihi",
         "actions": "İşlemler",
         "edit": "Düzenle",
         "delete": "Sil",
@@ -23,7 +26,11 @@
         "save": "Kaydet",
         "firstName": "Ad",
         "lastName": "Soyad",
-        "address": "Adres"
+        "address": "Adres",
+        "title": "Başlık",
+        "status": "Durum",
+        "publish": "Yayınla",
+        "update": "Güncelle"
     },
     "menu": {
         "home": "Anasayfa",
@@ -38,5 +45,27 @@
         "createUser": "Kullanıcı Oluştur",
         "editUser": "Kullanıcıyı Düzenle",
         "deleteUserText": "Bu kullanıcıyı silmek istediğinizden emin misiniz?"
+    },
+    "posts": {
+        "createPost": "Yazı Oluştur",
+        "editPost": "Yazıyı Düzenle",
+        "deletePostText": "Bu yazıyı silmek istediğinizden emin misiniz?",
+        "published": "Yayınlandı",
+        "draft": "Taslak",
+        "slug": "URL",
+        "featuredImage": "Öne Çıkan Görsel",
+        "content": "İçerik",
+        "writeHere": "Buraya yazın...",
+        "metaDescription": "Meta Açıklama",
+        "metaKeywords": "Meta Anahtar Kelimeler"
+    },
+    "pages": {
+        "createPage": "Sayfa Oluştur",
+        "editPage": "Sayfayı Düzenle",
+        "deletePageText": "Bu sayfayı silmek istediğinizden emin misiniz?"
+    },
+    "uploads": {
+        "selectFile": "Yüklemek için bir dosya seçin",
+        "uploadFile": "Dosya Yükle"
     }
 }
