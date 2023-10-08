@@ -1,3 +1,4 @@
+import BlogCard from "@/components/blog-card";
 import PageHeader from "@/components/layout/web/page-header";
 import { Button } from "@/components/ui/button";
 import {
@@ -5,11 +6,33 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
-export default function BlogPage() {
+export const metadata: Metadata = {
+  title: "Blog - Voip"
+};
+
+async function getData(limit: string = "6", page: string = "1") {
+  const res = await fetch(
+    process.env.WEBSITE_URL + `/api/blogs?limit=${limit}&page=${page}`,
+    {
+      cache: "no-store"
+    }
+  );
+  const data = await res.json();
+  return data;
+}
+
+export default async function BlogPage({ searchParams }) {
+  const posts = await getData(searchParams?.limit || 6, searchParams.page || 1);
+
   return (
     <>
       <PageHeader>
@@ -17,31 +40,43 @@ export default function BlogPage() {
       </PageHeader>
       <div className="container space-y-8 my-8">
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <Image
-                  src="https://plus.unsplash.com/premium_photo-1695339147014-32f68336c10c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-                  className="w-full lg:h-64 md:h-48 object-cover"
-                  width="720"
-                  height="480"
-                  alt={"cover-image-" + index}
-                />
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <CardTitle className="text-xl">
-                  Licensed under the Unsplash
-                </CardTitle>
-                <CardDescription className="text-base">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo,
-                  cumque.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
+          {posts?.data?.length > 0 ? (
+            posts?.data.map((post: any, index: number) => (
+              <BlogCard
+                key={index}
+                title={post.title}
+                description={post.content?.substring(0, 100) + "..."}
+                image={post.featured_image}
+                href={`/blog/${post.slug}`}
+              />
+            ))
+          ) : (
+            <div className="flex items-center justify-center">
+              <span className="text-stone-700 text-center">
+                No posts found.
+              </span>
+            </div>
+          )}
         </div>
-        <div className="flex justify-center">
-          <Button variant="outline">Load More</Button>
+        <div className="flex items-center justify-center space-x-4">
+          {searchParams?.page && Number(searchParams?.page) > 1 && (
+            <Link href={`/blog?page=${Number(searchParams?.page || 1) - 1}`}>
+              <Button variant="outline" size="icon">
+                <ChevronLeft size={20} />
+              </Button>
+            </Link>
+          )}
+          <span className="text-stone-700">
+            Page {searchParams?.page || 1} of {Math.ceil(posts.totalCount / 6)}
+          </span>
+          {searchParams?.page &&
+            Number(searchParams?.page) < Math.ceil(posts.totalCount / 6) && (
+              <Link href={`/blog?page=${Number(searchParams?.page || 1) + 1}`}>
+                <Button variant="outline" size="icon">
+                  <ChevronRight size={20} />
+                </Button>
+              </Link>
+            )}
         </div>
       </div>
     </>
