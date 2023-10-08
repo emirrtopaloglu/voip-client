@@ -28,6 +28,7 @@ import { Badge } from "@/components/ui/badge";
 
 interface Post {
   id: number;
+  slug: string;
   title: string;
   created_at: string;
   updated_at: string;
@@ -93,7 +94,7 @@ export default function PostsTable() {
       accessorKey: "title",
       header: i18n.t("common.title"),
       cell: ({ row }) => (
-        <Link href={"/admin/posts/" + row.original.id} className="font-medium">
+        <Link href={"/admin/posts/" + row.original.slug} className="font-medium">
           {row.original.title}
         </Link>
       )
@@ -132,7 +133,7 @@ export default function PostsTable() {
         <div className="space-x-2">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link href={"/admin/posts/" + row.original.id}>
+              <Link href={"/admin/posts/" + row.original.slug}>
                 <Button
                   variant="outline"
                   size="icon"

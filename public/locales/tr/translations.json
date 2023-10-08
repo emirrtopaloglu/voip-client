@@ -30,7 +30,7 @@
         "title": "Başlık",
         "status": "Durum",
         "publish": "Yayınla",
-        "selectFile": "Yüklemek için bir dosya seçin"
+        "update": "Güncelle"
     },
     "menu": {
         "home": "Anasayfa",

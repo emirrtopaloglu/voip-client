@@ -38,7 +38,8 @@
         "status": "Status",
         "publish": "Publish",
         "upload": "Upload",
-        "preview": "Preview"
+        "preview": "Preview",
+        "update": "Update"
     },
     "menu": {
         "home": "Home",

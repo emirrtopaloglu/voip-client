@@ -11,7 +11,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EditorState, convertToRaw } from "draft-js";
+import {
+  ContentState,
+  EditorState,
+  convertFromHTML,
+  convertToRaw
+} from "draft-js";
+import htmlToDraft from "html-to-draftjs";
 import { useEffect, useState } from "react";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -29,8 +35,6 @@ import axios from "@/lib/axios";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger
@@ -53,7 +57,7 @@ const postSchema = z.object({
 
 type PostSchema = z.infer<typeof postSchema>;
 
-export default function NewPostForm() {
+export default function PostForm({ slug }: { slug?: string }) {
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -72,6 +76,7 @@ export default function NewPostForm() {
   const watchTitle = form.watch("title");
   const watchFeaturedImage = form.watch("featured_image");
 
+  const [id, setId] = useState<number | null>(null);
   const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [editorState, setEditorState] = useState(() =>
@@ -92,12 +97,22 @@ export default function NewPostForm() {
   const onSubmit: SubmitHandler<PostSchema> = async (data) => {
     try {
       setLoading(true);
-      const res = await axios.post("api/blogs", {
-        ...data,
-        content: draftToHtml(convertToRaw(editorState.getCurrentContent()))
-      });
-      if (res.data.success) {
-        router.back();
+      if (slug) {
+        const res = await axios.put(`api/blogs/${id}`, {
+          ...data,
+          content: draftToHtml(convertToRaw(editorState.getCurrentContent()))
+        });
+        if (res.data.success) {
+          router.back();
+        }
+      } else {
+        const res = await axios.post("api/blogs", {
+          ...data,
+          content: draftToHtml(convertToRaw(editorState.getCurrentContent()))
+        });
+        if (res.data.success) {
+          router.back();
+        }
       }
     } catch (error) {
       console.error(error);
@@ -111,18 +126,51 @@ export default function NewPostForm() {
     setOpen(false);
   };
 
+  const getPost = async (slug: string) => {
+    try {
+      const res = await axios.get(`api/blogs/${slug}`);
+      if (res.data.success) {
+        const data = res.data.data;
+        setId(data.id);
+
+        form.setValue("title", data.title);
+        form.setValue("slug", data.slug);
+        form.setValue("featured_image", data.featured_image);
+        form.setValue("meta_description", data.meta_description);
+        form.setValue("meta_keyword", data.meta_keyword);
+
+        const blocksFromHtml = htmlToDraft(data.content);
+        const { contentBlocks, entityMap } = blocksFromHtml;
+        const contentState = ContentState.createFromBlockArray(
+          contentBlocks,
+          entityMap
+        );
+        const editorState = EditorState.createWithContent(contentState);
+        setEditorState(editorState);
+        form.setValue(
+          "content",
+          draftToHtml(convertToRaw(editorState.getCurrentContent()))
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     form.setValue("slug", slugify(watchTitle));
   }, [watchTitle]);
 
-  console.log(form.getValues());
+  useEffect(() => {
+    if (slug) getPost(slug);
+  }, [slug]);
 
   return (
     <>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          className="grid grid-cols-1 lg:grid-cols-3 gap-4"
           encType="multipart/form-data"
         >
           <div className="space-y-4 col-span-2">
@@ -194,7 +242,7 @@ export default function NewPostForm() {
                   <FormControl>
                     <>
                       {watchFeaturedImage && (
-                        <div className="border p-4 rounded-md">
+                        <div className="border p-4 rounded-md mb-4">
                           <img
                             src={watchFeaturedImage}
                             className="w-full h-64 object-contain"
@@ -261,7 +309,7 @@ export default function NewPostForm() {
               </Button>
               <Button type="submit" disabled={loading}>
                 {loading && <Loader2 size={16} className="mr-2 animate-spin" />}
-                {t("common.publish")}
+                {slug ? t("common.update") : t("common.publish")}
               </Button>
             </div>
           </div>
