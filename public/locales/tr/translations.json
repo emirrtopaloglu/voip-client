@@ -59,6 +59,11 @@
         "metaDescription": "Meta Açıklama",
         "metaKeywords": "Meta Anahtar Kelimeler"
     },
+    "pages": {
+        "createPage": "Sayfa Oluştur",
+        "editPage": "Sayfayı Düzenle",
+        "deletePageText": "Bu sayfayı silmek istediğinizden emin misiniz?"
+    },
     "uploads": {
         "selectFile": "Yüklemek için bir dosya seçin",
         "uploadFile": "Dosya Yükle"

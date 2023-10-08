@@ -68,6 +68,11 @@
         "metaDescription": "Meta Description",
         "metaKeywords": "Meta Keywords"
     },
+    "pages": {
+        "createPage": "Create Page",
+        "editPage": "Edit Page",
+        "deletePageText": "Are you sure you want to delete this page?"
+    },
     "uploads": {
         "selectFile": "Select a file to upload",
         "uploadFile": "Upload File"

@@ -1,5 +1,5 @@
 import PageHeader from "@/components/layout/page-header";
-import PostForm from "@/views/posts/post-form";
+import PageForm from "@/views/pages/page-form";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 export default function NewPostPage() {
   return (
     <section id="new-post-page" className="space-y-4">
-      <PageHeader title="post.createPost" />
-      <PostForm />
+      <PageHeader title="pages.createPage" />
+      <PageForm />
     </section>
   );
 }
