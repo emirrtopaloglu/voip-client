@@ -1,27 +1,20 @@
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { DataTable } from "@/views/users/data-table";
-import { columns } from "@/views/users/columns";
+import PageHeader from "@/components/layout/page-header";
+import UsersTable from "@/views/users/users-table";
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import Loading from "../loading";
+
+export const metadata: Metadata = {
+  title: "Users - Voip"
+};
 
 export default async function UsersPage() {
-  // const res = await fetch("http://localhost:3000/api/users");
-  // const { data: users } = await res.json();
-
   return (
     <section id="users-page" className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-medium">Users</h1>
-        <Button>
-          <Plus size={16} className="inline-block mr-2" />
-          Create User
-        </Button>
-      </div>
-      <div>
-        <DataTable
-          columns={columns}
-          data={[]}
-        />
-      </div>
+      <PageHeader title="menu.users" />
+      <Suspense fallback={<Loading />}>
+        <UsersTable />
+      </Suspense>
     </section>
   );
 }

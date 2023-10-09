@@ -16,7 +16,7 @@ export const POST = isAuth(async function POST(
       return NextResponse.json(
         {
           success: false,
-          error: "Yanlış ya da izin verilmeyen bir dosya yüklediniz",
+          error: "Yanlış ya da izin verilmeyen bir dosya yüklediniz"
         },
         { status: 400 }
       );
@@ -44,7 +44,7 @@ export const POST = isAuth(async function POST(
     return NextResponse.json(
       {
         success: false,
-        error: err,
+        error: err
       },
       { status: 500 }
     );
