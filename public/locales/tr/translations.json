@@ -32,7 +32,8 @@
         "publish": "Yayınla",
         "update": "Güncelle",
         "date": "Tarih",
-        "ip_address": "IP Adresi"
+        "ip_address": "IP Adresi",
+        "subscribe": "Abone Ol"
     },
     "menu": {
         "home": "Anasayfa",

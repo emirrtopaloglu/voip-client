@@ -41,7 +41,8 @@
         "preview": "Preview",
         "update": "Update",
         "date": "Date",
-        "ip_address": "IP Address"
+        "ip_address": "IP Address",
+        "subscribe": "Subscribe"
     },
     "menu": {
         "home": "Home",
