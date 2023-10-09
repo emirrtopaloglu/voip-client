@@ -1,27 +1,21 @@
-import MailList from "@/models/mailList";
-import Menu from "@/models/menu";
+import { isAuth } from "@/libs/auth";
+import Setting from "@/models/setting";
 import errorGenerator from "@/utils/error";
 import slugify from "@/utils/slugify";
 import { createMenuSchema } from "@/validations/menu";
-import getOffsetLimitParams from "@/utils/pagination";
+import { createSettingSchema } from "@/validations/setting";
+import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { createNewsLetterSchema } from "@/validations/newsLetter";
-import { isAuth } from "@/libs/auth";
 
-export const GET = isAuth(async function GET(request: NextRequest) {
+/* export async function GET(request: NextRequest, res: NextResponse) {
   try {
-    const { offset, limit } = getOffsetLimitParams(request);
-    const newsletters = await MailList.findAndCountAll({
-      offset: offset,
-      limit: limit,
-    });
+    const settings = await Setting.findAll();
 
     return NextResponse.json(
       {
         success: true,
-        data: newsletters.rows,
-        totalCount: newsletters.count,
+        data: settings,
       },
       { status: 200 }
     );
@@ -34,18 +28,16 @@ export const GET = isAuth(async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-});
+} */
 
-export async function POST(request: Request) {
+export const POST = isAuth(async function POST(request: Request) {
   try {
     const body = await request.json();
+    body.kv_settings = JSON.stringify(body.kv_settings);
+    const validationResult = createSettingSchema.parse(body);
 
-    const validationResult = createNewsLetterSchema.parse(body);
-
-    const result = await MailList.create({
-      fullname: validationResult.fullname,
-      email: validationResult.email,
-      is_subscribed: true,
+    const result = await Setting.create({
+      kv_settings: validationResult.kv_settings,
     });
 
     return NextResponse.json(
@@ -64,4 +56,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
+});
