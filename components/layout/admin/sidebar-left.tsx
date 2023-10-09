@@ -1,21 +1,22 @@
+"use client";
+
 import {
-  FileText,
+  FileClock,
   Grip,
   Home,
   Layers,
-  ListTodo,
   MenuSquare,
-  MessageSquarePlus,
   PlusSquare,
-  ScrollText,
   Settings,
   ShieldCheck,
-  User2,
-  Users,
+  Users
 } from "lucide-react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 export default function SidebarLeft() {
+  const { t } = useTranslation();
+
   return (
     <section
       id="sidebar-left"
@@ -40,7 +41,7 @@ export default function SidebarLeft() {
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <Home size={16} className="inline-block mr-2" />
-                Home
+                {t("menu.home")}
               </Link>
             </li>
             <li className="block">
@@ -49,7 +50,7 @@ export default function SidebarLeft() {
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <Users size={16} className="inline-block mr-2" />
-                Users
+                {t("menu.users")}
               </Link>
             </li>
             <li className="block">
@@ -58,7 +59,7 @@ export default function SidebarLeft() {
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <PlusSquare size={16} className="inline-block mr-2" />
-                Posts
+                {t("menu.posts")}
               </Link>
             </li>
             <li className="block">
@@ -67,7 +68,7 @@ export default function SidebarLeft() {
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <Layers size={16} className="inline-block mr-2" />
-                Pages
+                {t("menu.pages")}
               </Link>
             </li>
             <li className="block">
@@ -76,7 +77,7 @@ export default function SidebarLeft() {
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <MenuSquare size={16} className="inline-block mr-2" />
-                Menus
+                {t("menu.menus")}
               </Link>
             </li>
             <li className="block">
@@ -85,7 +86,16 @@ export default function SidebarLeft() {
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <ShieldCheck size={16} className="inline-block mr-2" />
-                Roles
+                {t("menu.roles")}
+              </Link>
+            </li>
+            <li className="block">
+              <Link
+                href="/admin/logs"
+                className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
+              >
+                <FileClock size={16} className="inline-block mr-2" />
+                {t("menu.logs")}
               </Link>
             </li>
             <li className="block">
@@ -94,7 +104,7 @@ export default function SidebarLeft() {
                 className="text-stone-700 text-sm hover:bg-stone-100 p-2 cursor-pointer duration-200 rounded flex items-center"
               >
                 <Settings size={16} className="inline-block mr-2" />
-                Settings
+                {t("menu.settings")}
               </Link>
             </li>
           </ul>

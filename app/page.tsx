@@ -5,15 +5,16 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import NewsletterForm from "@/views/newsletter/newsletter-form";
 import { ArrowRight, PersonStanding } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Home - Voip",
+  title: "Home - Voip"
 };
 
 export default async function RootPage() {
@@ -209,7 +210,7 @@ export default async function RootPage() {
       {/* end:card-section */}
       {/* start:newsletter */}
       <div id="newsletter" className="py-16 bg-stone-50">
-        <div className="container flex">
+        <div className="container flex justify-between items-center">
           <div className="w-2/3 space-y-2">
             <h2 className="text-2xl leading-snug text-stone-800">
               Subscribe to our newsletter
@@ -218,9 +219,8 @@ export default async function RootPage() {
               Subscribe to our newsletter to get our latest news and products
             </p>
           </div>
-          <div className="w-1/3 space-x-2 flex flex-row">
-            <Input placeholder="Enter your email" size={24} />
-            <Button>Subscribe</Button>
+          <div className="w-1/3">
+            <NewsletterForm />
           </div>
         </div>
       </div>

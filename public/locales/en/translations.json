@@ -39,7 +39,10 @@
         "publish": "Publish",
         "upload": "Upload",
         "preview": "Preview",
-        "update": "Update"
+        "update": "Update",
+        "date": "Date",
+        "ip_address": "IP Address",
+        "subscribe": "Subscribe"
     },
     "menu": {
         "home": "Home",
@@ -48,6 +51,7 @@
         "pages": "Pages",
         "menus": "Menus",
         "roles": "Roles",
+        "logs": "Logs",
         "settings": "Settings"
     },
     "users": {

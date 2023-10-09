@@ -30,7 +30,10 @@
         "title": "Başlık",
         "status": "Durum",
         "publish": "Yayınla",
-        "update": "Güncelle"
+        "update": "Güncelle",
+        "date": "Tarih",
+        "ip_address": "IP Adresi",
+        "subscribe": "Abone Ol"
     },
     "menu": {
         "home": "Anasayfa",
@@ -39,6 +42,7 @@
         "pages": "Sayfalar",
         "menus": "Menüler",
         "roles": "Roller",
+        "logs": "Loglar",
         "settings": "Ayarlar"
     },
     "users": {
